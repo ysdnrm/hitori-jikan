@@ -13,7 +13,19 @@ class Post < ApplicationRecord
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
       image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
     end
-    image#.variant(resize_to_limit: [height, width]).processed
+    images#.variant(resize_to_limit: [height, width]).processed
+  end
+  
+  # バリデーション
+  with_options presence: true do
+    validates :shop_name
+    validates :shop_introduction
+    validates :shop_postal_code
+    validates :shop_address
+    validates :stay_weekday
+    validates :stay_time_start
+    validates :stay_time_end
+    validates :congestion_degree
   end
 
 end

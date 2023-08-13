@@ -1,0 +1,22 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+      post: 投稿
+    attributes:
+      user:
+        name: 名前
+        address: 住所
+        phone: 電話番号
+        sex: 性別
+        mail_address: メールアドレス
+      post:
+        shop_name: 'お店の名前'
+        shop_introduction: 'お店の紹介文'
+        shop_postal_code: 'お店の郵便番号'
+        shop_address: 'お店の住所'
+        stay_weekday: 'お店を利用した曜日'
+        stay_time_start: 'お店を利用した時間帯（入店時間）'
+        stay_time_end: 'お店を利用した時間帯（退店時間）'
+        congestion_degree: 'お店の混み具合'
+        
