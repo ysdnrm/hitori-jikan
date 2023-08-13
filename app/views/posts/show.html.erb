@@ -1,0 +1,61 @@
+<div class="container mt-5 pb-5">
+  <div class="form-group">
+    <h2 class="mb-3 ml-5 text-center">投稿詳細</h2>
+    <div class="row mt-5 mb-5">
+      <div class="col-lg-5">
+       <%#= image_tag @post.get_image, class: "rounded",size:"200x200", class: "rounded-bottom" %>
+        <% if @post.images.attached? %>
+          <% @post.images.each do |image| %>
+            <%= image_tag image.variant(resize: '200x200') %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="col-lg-7 ">
+      <table class="table mx-auto">
+        <tbody>
+          <tr>
+            <td>お店の名前</td>
+            <td><%= @post.shop_name %></td>
+          </tr>
+
+          <tr>
+             <td>お店の紹介文</td>
+             <td><%= @post.shop_introduction %></td>
+          </tr>
+
+          <tr>
+            <td>お店の郵便番号</td>
+            <td><%= @post.shop_postal_code %></td>
+          </tr>
+
+          <tr>
+             <td>お店の住所</td>
+             <td><%= @post.shop_address %></td>
+          </tr>
+
+          <tr>
+             <td>お店を利用した曜日</td>
+             <td><%= @post.stay_weekday_i18n %></td>
+          </tr>
+
+          <tr>
+             <td>お店を利用した時間帯</td>
+             <td><%= @post.stay_time_start %>時〜<%= @post.stay_time_end %>時ごろ</td>
+          </tr>
+
+          <tr>
+             <td>お店の混み具合</td>
+             <td><%= @post.congestion_degree_i18n %></td>
+          </tr>
+
+        </tbody>
+       </table>
+      </div>
+      </div>
+      <div class="text-center">
+       <%= link_to "編集する", edit_post_path, class: "btn btn-success mt-3 ml-5 px-4 py-2" %>
+      </div>
+    </div>
+  </div>
+</div>

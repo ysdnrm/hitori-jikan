@@ -1,0 +1,18 @@
+# 日本語化
+ja:
+  enums: 
+    post: # 投稿（モデル名）
+      stay_weekday: # 曜日選択（カラム名）
+        sunday: '日曜日' # enumの値
+        monday: '月曜日' 
+        tuesday: '火曜日'
+        wednesday: '水曜日'
+        thursday: '木曜日'
+        friday: '金曜日'
+        saturday: '土曜日'
+        holiday: '祝日'
+      congestion_degree: # 混み具合
+        empty: '空いていた'
+        half: '半分くらい'
+        full: 'ほぼ満席'
+        over: '満席で、待っている人もいた'

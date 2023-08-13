@@ -4,13 +4,13 @@ Rails.application.routes.draw do
   root to: 'homes#top'
   get '/about' => 'homes#about', as: 'about'
   
-  resources :posts, only: [:new, :create, :index, :show, :destroy] do
+  resources :posts #do
         # post_imagesと親子関係（「親」に対して「子」される）
         # ⇩ resourceとなっている点に注目!(単数形にすると、/:idがURLに含まれなくなる。)
     # resource :favorites, only: [:create, :destroy]
     # resources :post_comments, only: [:create, :destroy]
         # ↑ ネストする(params[:post_image_id]でPostImageのidが取得できるようになります。)
-  end
+  #end
   
   resources :users, only: [:show, :edit, :update]
 

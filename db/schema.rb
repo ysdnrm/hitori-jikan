@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 2023_08_09_184908) do
     t.text "shop_introduction", null: false
     t.string "shop_postal_code", null: false
     t.string "shop_address", null: false
-    t.integer "stay_weekday", null: false
+    t.integer "stay_weekday", default: 0, null: false
     t.integer "stay_time_start", null: false
     t.integer "stay_time_end", null: false
     t.integer "congestion_degree", default: 0, null: false
