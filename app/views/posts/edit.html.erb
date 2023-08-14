@@ -1,7 +1,20 @@
 <div class="container mt-5 pb-5">
   <div class="form-group text-center">
     <h2 class="mb-3 ml-5">投稿編集</h2>
+      <% if @post.images.attached? %>
+        <p>選択済みの画像（削除する画像にチェックをつけてください）</p>
+        <div style="display: flex; flex-wrap: wrap; width: 750px;">
+          <% @post.images.each do |image| %>
+            <div style="display: flex; margin:5px 5px 5px 0;">
+              <%= check_box :image_ids, { multiple: true }, image.id, false %>
+              <label form="user_image_ids_<%= image.id %>" >
+                <%= image_tag image, size: '300x200' %>
+              </label>
+            </div>
+           <% end %>
+        </div>
+      <% end %>
 
-    <%= render 'form', post: @post %>
+      <%= render 'form', post: @post %>
   </div>
 </div>
