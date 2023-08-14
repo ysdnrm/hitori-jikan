@@ -12,6 +12,11 @@ Rails.application.routes.draw do
         # ↑ ネストする(params[:post_image_id]でPostImageのidが取得できるようになります。)
   #end
   
+  # タグの検索で使用する
+  get "search_tag" => "posts#search_tag"
+  
   resources :users, only: [:show, :edit, :update]
+  
+  
 
 end
