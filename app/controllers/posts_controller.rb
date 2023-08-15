@@ -34,6 +34,14 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
+    #添付画像を個別に削除
+    if params[:post][:image_ids]
+      params[:post][:image_ids].each do |image_id|
+        image = @post.images.find(image_id)
+        image.purge
+      end
+    end
+
     if @post.update(post_params)
       flash[:notice] = "変更に成功しました！"
       redirect_to post_path(@post)
