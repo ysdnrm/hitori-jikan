@@ -16,6 +16,30 @@ class Post < ApplicationRecord
     images#.variant(resize_to_limit: [height, width]).processed
   end
   
+    # タグのリレーションのみ記載
+  has_many :post_shop_tags, dependent: :destroy
+  has_many :shop_tags, through: :post_shop_tags
+  
+  def save_shop_tags(tags)
+  # タグが存在していれば、タグの名前を配列として全て取得
+    current_tags = self.shop_tags.pluck(:name) unless self.shop_tags.nil?
+    # 現在取得したタグから送られてきたタグを除いてoldtagとする
+    old_tags = current_tags - tags
+    # 送信されてきたタグから現在存在するタグを除いたタグをnewとする
+    new_tags = tags - current_tags
+
+    # 古いタグを消す
+    old_tags.each do |old_name|
+      self.shop_tags.delete ShopTag.find_by(name:old_name)
+    end
+
+    # 新しいタグを保存
+    new_tags.each do |new_name|
+      shop_tag = ShopTag.find_or_create_by(name:new_name)
+      self.shop_tags << shop_tag
+    end
+  end
+
   # バリデーション
   with_options presence: true do
     validates :shop_name

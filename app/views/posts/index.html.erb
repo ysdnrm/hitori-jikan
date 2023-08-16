@@ -3,6 +3,14 @@
     <h2 class="mb-3 ml-5 text-center">投稿一覧</h2>
       <div class="row">
         <%= render 'post', posts: @posts %>
+        
+          <!--タグリスト-->
+        <% @tag_list.each do |list|%>
+          <i class="fa-sharp fa-solid fa-tag"></i>
+          <%= link_to list.name,search_tag_path(shop_tag_id: list.id) %>
+          <%="(#{list.posts.count})" %>
+        <% end %>
+
       </div>
   </div>
 </div>

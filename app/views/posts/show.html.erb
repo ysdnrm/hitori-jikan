@@ -26,6 +26,17 @@
              <td>お店の紹介文</td>
              <td><%= @post.shop_introduction %></td>
           </tr>
+    
+          <tr>
+            <td>タグ</td>
+            <td>
+              <% @post_shop_tags.each do |tag| %>
+                <i class="fa-sharp fa-solid fa-tag"></i>
+                <%= link_to tag.name,search_tag_path(shop_tag_id: tag.id) %>
+              <% end %>
+             </td>
+          </tr>
+
 
           <tr>
             <td>お店の郵便番号</td>
