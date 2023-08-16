@@ -40,7 +40,16 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
+
     tag_list = params[:post][:name].split(',')
+    #添付画像を個別に削除
+    if params[:post][:image_ids]
+      params[:post][:image_ids].each do |image_id|
+        image = @post.images.find(image_id)
+        image.purge
+      end
+    end
+
     if @post.update(post_params)
        @post.save_shop_tags(tag_list)
       flash[:notice] = "変更に成功しました！"

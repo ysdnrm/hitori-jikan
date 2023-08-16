@@ -11,12 +11,15 @@ module HitoriJikan
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
     # 日本語化
-     config.paths.add 'lib', eager_load: true
-     config.time_zone = 'Tokyo'
+    config.paths.add 'lib', eager_load: true
+    config.time_zone = 'Tokyo'
     config.i18n.default_locale = :ja
-     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '*.{rb,yml}').to_s]
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '*.{rb,yml}').to_s]
+    config.i18n.fallbacks =[:en] 
+    
+    #ActiveStorage上書きしない
+    config.active_storage.replace_on_assign_to_many = false
 
-     config.i18n.fallbacks =[:en] 
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

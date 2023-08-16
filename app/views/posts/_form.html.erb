@@ -1,7 +1,21 @@
 
 <%= form_with model: post, local: true do |f| %>
       <div class="form-group row mt-5">
-
+        <!--画像があったら-->
+        <% if @post.images.attached? %>
+          <p>選択済みの画像（削除する画像にチェックをつけてください）</p>
+          <div style="display: flex; flex-wrap: wrap; width: 750px;">
+            <% @post.images.each do |image| %>
+              <div style="display: flex; margin:5px 5px 5px 0;">
+                <%= f.check_box :image_ids, { multiple: true }, image.id, false %>
+                <label form="user_image_ids_<%= image.id %>" >
+                  <%= image_tag image, size: '300x200' %>
+                </label>
+              </div>
+             <% end %>
+          </div>
+        <% end %>
+        <!--画像登録-->
         <%= f.label :images, "投稿画像", class: "col-4 col-form-label" %>
         <%= f.file_field :images, accept: "image/*", multiple: true, class: "image-item" %>
       </div>
