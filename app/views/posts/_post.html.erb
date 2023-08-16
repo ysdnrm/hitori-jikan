@@ -1,11 +1,14 @@
 
 <% posts.each do |post| %>
   <div class="col-3">
-    <p>ユーザーネーム：<%= post.user.name %></p>
+      <p>
+        <%= image_tag post.user.get_profile_image(100,100), class:"mt-3 rounded-circle"; %>
+        <%= post.user.name %>
+      </p>
     <%= link_to post_path(post.id) ,style: "color: black;" do %>
       <%= image_tag post.images[0], class: "rounded",size:"200x200", class: "rounded-bottom" %>
-      <p>お店の名前：<%= post.shop_name %></p>
-      <p>お店の紹介文：<%= post.shop_introduction %></p>
+      <p>店名：<%= post.shop_name %></p>
+      <p>紹介文：<%= post.shop_introduction %></p>
       <p>住所：<%= post.shop_address %></p>
     <% end %>
   </div>

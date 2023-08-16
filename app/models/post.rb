@@ -1,5 +1,7 @@
 class Post < ApplicationRecord
+  # 複数画像投稿
   has_many_attached :images
+  
   belongs_to :user
   
   # 曜日選択         {日曜: 0、月曜: 1、火曜: 2、水曜: 3、木曜: 4、金曜: 5、土曜: 6、祝日: 7}
