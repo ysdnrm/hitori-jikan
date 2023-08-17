@@ -27,10 +27,9 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    # @post_comment = PostComment.new
-    #byebug
     @tag_list = @post.shop_tags.pluck(:name).join(',')
     @post_shop_tags = @post.shop_tags
+    @post_comment = PostComment.new
   end
 
   def edit
@@ -78,7 +77,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:shop_name, :shop_introduction, :shop_postal_code, :shop_address, :stay_weekday, :stay_time_start, :stay_time_end, :congestion_degree, images: [])
+    params.require(:post).permit(:shop_name, :shop_introduction, :shop_postal_code, :shop_address, :stay_weekday, :stay_time_start, :stay_time_end, :congestion_degree, :admin, images: [])
   end
 
 end

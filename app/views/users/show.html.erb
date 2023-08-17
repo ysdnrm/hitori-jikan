@@ -1,6 +1,12 @@
 <!-- ユーザーの詳細 -->
 <div class="container">
 <div class="mt-4">
+  <!--管理者用のユーザー一覧のリンク-->
+   <% if user_signed_in? %>
+     <% if current_user.admin? %>
+       <%= link_to "管理者用ユーザー一覧", users_path, class: "pull-right btn  btn-sm btn-success col-3 mb-3 font-weight-bold"  %>
+     <% end %>
+   <% end %>
 
     <h3 class="font-weight-bold">マイページ</h3>
     <!--本人だったら-->
@@ -40,8 +46,9 @@
     <!-- ユーザーの投稿一覧 -->
     <h3 class="font-weight-bold mt-5">投稿一覧</h3>
     <div class="row">
-      <%= render 'posts/post', posts: @posts %>
+      <%= render 'posts/post', posts: @posts, user: @user %>
     </div>
+
 </div>
 </div>
-  
+
