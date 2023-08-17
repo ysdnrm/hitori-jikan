@@ -10,8 +10,10 @@
     <%= link_to post_path(post.id) ,style: "color: black;" do %>
       <%= image_tag post.images[0], class: "rounded",size:"250x200", class: "rounded-bottom" %>
       <p>店名：<%= post.shop_name %></p>
-      <p>紹介文：<%= post.shop_introduction %></p>
       <p>住所：<%= post.shop_address %></p>
+      <p id="favorite_buttons_<%= post.id %>" >
+        <%= render "favorites/favorite", post: post %>
+      </p>
       <p>コメント：<%= post.post_comments.count %></p>
     <% end %>
     

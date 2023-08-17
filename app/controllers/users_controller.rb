@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   # 各アクションを実行する前に実行したい処理を指定(before_action)
   before_action :is_matching_login_user, only: [:edit, :update]
-  before_action user_admin, only: [:index]
+  before_action :set_user, only: [:favorites]
+  # before_action user_admin, only: [:index]
 
   
   def index
@@ -22,7 +23,12 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.update(user_params)
     redirect_to user_path(@user.id)
-
+  end
+  
+  # いいねした投稿一覧
+  def favorites
+    favorites = Favorite.where(user_id: @user.id).pluck(:post_id)
+    @favorite_posts = Post.find(favorites) #いいねした投稿
   end
 
   private
@@ -39,6 +45,11 @@ class UsersController < ApplicationController
         render action: "index"
     end
   end
+  
+  def set_user
+    @user = User.find(params[:id])
+  end
+
   
   # 他のユーザーからのアクセス制限(is_matching_login_userというメソッドにまとめる)
   def is_matching_login_user

@@ -1,10 +1,15 @@
 class Post < ApplicationRecord
   # 複数画像投稿
   has_many_attached :images
-  
+  # アソシエーション
   belongs_to :user
   has_many :post_comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
   
+  # いいね機能でのユーザーの存在
+  def favorited_by?(user)
+    favorites.exists?(user_id: user.id)
+  end
   # 曜日選択         {日曜: 0、月曜: 1、火曜: 2、水曜: 3、木曜: 4、金曜: 5、土曜: 6、祝日: 7}
   enum stay_weekday: { sunday: 0, monday: 1, tuesday: 2, wednesday: 3, thursday: 4, friday: 5, saturday: 6, holiday: 7 }
   # 混み具合選択 {空いている: 0、半分くらい: 1、ほぼ満席: 2、待っている人も居た: 3}
@@ -19,7 +24,7 @@ class Post < ApplicationRecord
     images#.variant(resize_to_limit: [height, width]).processed
   end
   
-    # タグのリレーションのみ記載
+  # タグのリレーションのみ記載
   has_many :post_shop_tags, dependent: :destroy
   has_many :shop_tags, through: :post_shop_tags
   
