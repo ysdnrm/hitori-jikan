@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     resources :post_comments, only: [:create, :destroy]
 
     collection do
+      get 'confirm' #下書き
       get 'search'
       get 'search_tag'
     end

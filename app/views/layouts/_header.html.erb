@@ -4,10 +4,25 @@
       <a class="navbar-brand m-0 " href="/"><%#= image_tag('na.png') %></a>
         <ul class="navbar-nav ml-auto">
 
-　　　　<ul class="nav navbar-nav navbar-right">
-　　　　  <% if user_signed_in? %>
-　　　　  <!--ユーザーがログインしているとき-->
-
+        <ul class="nav navbar-nav navbar-right">
+          <% if user_signed_in? %><!--ユーザーがログインしているとき-->
+         <li>
+            <%= link_to about_path,class: 'nav-link text-light' do %>
+               About
+            <% end %>
+          </li>
+          <li>
+            <%= link_to "投稿する", new_post_path, class: "text-white" %>
+          </li>
+          <li>
+            <%= link_to "投稿一覧", posts_path, class: "text-white" %>
+          </li>
+          <li>
+            <%= link_to "マイページ", user_path(current_user), class: "text-white" %>
+          </li>
+          <li>
+            <%= link_to "下書き一覧", confirm_posts_path, class: "text-white" %>
+          </li>
           <li>
             <%= link_to destroy_user_session_path, method: :delete,class: 'nav-link text-light' do %>
                ログアウト
@@ -17,8 +32,8 @@
             <%= render 'layouts/search_form' %>
           </li>
 
-           <% else %>
-　　　　　<!--ログインしていないとき-->
+           <% else %>  <!--ログインしていないとき-->
+　　　　　
           <li>
             <%= link_to about_path,class: 'nav-link text-light' do %>
                About
@@ -35,6 +50,9 @@
             <%= link_to new_user_session_path ,class: 'nav-link text-light' do %>
                ログイン
             <% end %>
+          </li>
+          <li>
+            <%= link_to "投稿一覧", posts_path, class: "text-white" %>
           </li>
           <li>
             <%= render 'layouts/search_form' %>
