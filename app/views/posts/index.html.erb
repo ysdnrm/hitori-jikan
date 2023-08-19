@@ -2,14 +2,14 @@
   <div class="col-md-12">
     <h2 class="mb-3 ml-5 text-center">投稿一覧</h2>
       <!--タグリスト-->
-      <% @tag_list.each do |list|%>
+      <% @shop_tags.each do |shop_tag|%>
         <i class="fa-sharp fa-solid fa-tag"></i>
-        <%= link_to list.name,search_tag_path(shop_tag_id: list.id) %>
-        <%="(#{list.posts.count})" %>
+        <%= link_to shop_tag.name,search_tag_posts_path(shop_tag_id: shop_tag.id) %>
+        <%="(#{shop_tag.posts.count})" %>
       <% end %>
 
       <div class="row">
-        <%= render 'post', posts: @posts, user: @user %>
+        <%= render 'post', posts: @posts %>
       </div>
   </div>
 </div>
