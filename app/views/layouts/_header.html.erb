@@ -13,6 +13,9 @@
                ログアウト
             <% end %>
           </li>
+          <li>
+            <%= render 'layouts/search_form' %>
+          </li>
 
            <% else %>
 　　　　　<!--ログインしていないとき-->
@@ -32,6 +35,9 @@
             <%= link_to new_user_session_path ,class: 'nav-link text-light' do %>
                ログイン
             <% end %>
+          </li>
+          <li>
+            <%= render 'layouts/search_form' %>
           </li>
 
         <% end %>

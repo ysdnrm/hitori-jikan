@@ -1,0 +1,5 @@
+<!--検索窓-->
+<%= form_tag search_posts_path, method: :get do %>
+  <%= text_field_tag :keywords, params[:keywords], placeholder: "店舗名、タグ...", required: true %>
+  <%= submit_tag "検索" %>
+<% end %>

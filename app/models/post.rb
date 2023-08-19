@@ -5,7 +5,7 @@ class Post < ApplicationRecord
   belongs_to :user
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
-  
+
   # いいね機能でのユーザーの存在
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
@@ -14,7 +14,7 @@ class Post < ApplicationRecord
   enum stay_weekday: { sunday: 0, monday: 1, tuesday: 2, wednesday: 3, thursday: 4, friday: 5, saturday: 6, holiday: 7 }
   # 混み具合選択 {空いている: 0、半分くらい: 1、ほぼ満席: 2、待っている人も居た: 3}
   enum congestion_degree: { empty: 0, half: 1, full: 2, over: 3 }
-  
+
   # 投稿画像について
   def get_image#(height, width)
     unless image.attached?
@@ -23,11 +23,11 @@ class Post < ApplicationRecord
     end
     images#.variant(resize_to_limit: [height, width]).processed
   end
-  
+
   # タグのリレーションのみ記載
   has_many :post_shop_tags, dependent: :destroy
   has_many :shop_tags, through: :post_shop_tags
-  
+
   def save_shop_tags(tags)
   # タグが存在していれば、タグの名前を配列として全て取得
     current_tags = self.shop_tags.pluck(:name) unless self.shop_tags.nil?
@@ -35,18 +35,39 @@ class Post < ApplicationRecord
     old_tags = current_tags - tags
     # 送信されてきたタグから現在存在するタグを除いたタグをnewとする
     new_tags = tags - current_tags
-
     # 古いタグを消す
     old_tags.each do |old_name|
       self.shop_tags.delete ShopTag.find_by(name:old_name)
     end
-
     # 新しいタグを保存
     new_tags.each do |new_name|
       shop_tag = ShopTag.find_or_create_by(name:new_name)
       self.shop_tags << shop_tag
     end
   end
+
+  # キーワード、タグ検索
+  scope :search_by_keywords, ->(keywords) {
+    keywords_array = keywords.split(/\s+/) # キーワードをスペースで分割して配列化
+
+    self.joins(:post_shop_tags).joins(:shop_tags).where( 
+      keywords_array.map do |_|
+        [
+          'shop_name LIKE :keyword',
+          'shop_introduction LIKE :keyword',
+          'shop_postal_code LIKE :keyword',
+          'shop_address LIKE :keyword',
+          'stay_weekday LIKE :keyword', # enum の場合、値の一致を確認
+          'stay_time_start LIKE :keyword',
+          'stay_time_end LIKE :keyword',
+          'congestion_degree LIKE :keyword', # enum の場合、値の一致を確認
+          'shop_tags.name LIKE :keyword' #shop_tagsテーブルのnameカラム
+        ].join(' OR ')
+      end.join(' OR '),
+      *keywords_array.map { |keyword| { keyword: "%#{keyword}%" } }
+    ).uniq  #投稿が重複しないように
+  }
+
 
   # バリデーション
   with_options presence: true do
