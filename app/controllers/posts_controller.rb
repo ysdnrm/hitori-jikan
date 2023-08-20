@@ -11,23 +11,30 @@ class PostsController < ApplicationController
     @post.user_id = current_user.id
      # 受け取った値を,で区切って配列にする
     shop_tags = params[:post][:name].split(',')
+    # @post.save_status = params[:post][:save_status]
+    
     if @post.save
       @post.save_shop_tags(shop_tags)
       redirect_to post_path(@post)
     else
       render "new"
     end
+      
+  end
+  
+  # 下書き
+  def confirm
+    @posts = current_user.posts.draft.all
+    # find_by(params[:post_id])
   end
 
   def index
-    @posts = Post.all
-    # @tag_list = ShopTag.all
+    @posts = Post.published.all #投稿されたものだけ取得
     @shop_tags = ShopTag.all
   end
 
   def show
     @post = Post.find(params[:id])
-    # @tag_list = @post.shop_tags.pluck(:name).join(',')
     @shop_tags = @post.shop_tags.pluck(:name).join(',')
     @post_shop_tags = @post.shop_tags
     @post_comment = PostComment.new
@@ -86,7 +93,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:shop_name, :shop_introduction, :shop_postal_code, :shop_address, :stay_weekday, :stay_time_start, :stay_time_end, :congestion_degree, :admin, images: [])
+    params.require(:post).permit(:shop_name, :shop_introduction, :shop_postal_code, :shop_address, :stay_weekday, :stay_time_start, :stay_time_end, :congestion_degree, :admin, :save_status, images: [])
   end
 
 end

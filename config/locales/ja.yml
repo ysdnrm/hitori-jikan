@@ -16,6 +16,9 @@ ja:
         half: '半分くらい'
         full: 'ほぼ満席'
         over: '満席で、待っている人もいた'
+      save_status:
+        published: '投稿する'
+        draft: '下書きする'
   # activerecord:
   #   models:
   #     user: ユーザー

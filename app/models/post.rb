@@ -10,10 +10,14 @@ class Post < ApplicationRecord
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
   end
+  
+# enum
   # 曜日選択         {日曜: 0、月曜: 1、火曜: 2、水曜: 3、木曜: 4、金曜: 5、土曜: 6、祝日: 7}
   enum stay_weekday: { sunday: 0, monday: 1, tuesday: 2, wednesday: 3, thursday: 4, friday: 5, saturday: 6, holiday: 7 }
-  # 混み具合選択 {空いている: 0、半分くらい: 1、ほぼ満席: 2、待っている人も居た: 3}
+  # 混み具合選択          {空いている: 0、半分くらい: 1、ほぼ満席: 2、待っている人も居た: 3}
   enum congestion_degree: { empty: 0, half: 1, full: 2, over: 3 }
+  # 下書き機能.     {投稿する: 0、下書きする: 1 }
+  enum save_status: { published: 0, draft: 1 }
 
   # 投稿画像について
   def get_image#(height, width)
@@ -50,7 +54,7 @@ class Post < ApplicationRecord
   scope :search_by_keywords, ->(keywords) {
     keywords_array = keywords.split(/\s+/) # キーワードをスペースで分割して配列化
 
-    self.joins(:post_shop_tags).joins(:shop_tags).where( 
+    self.joins(:post_shop_tags).joins(:shop_tags).joins(:user).where( 
       keywords_array.map do |_|
         [
           'shop_name LIKE :keyword',
@@ -61,7 +65,8 @@ class Post < ApplicationRecord
           'stay_time_start LIKE :keyword',
           'stay_time_end LIKE :keyword',
           'congestion_degree LIKE :keyword', # enum の場合、値の一致を確認
-          'shop_tags.name LIKE :keyword' #shop_tagsテーブルのnameカラム
+          'shop_tags.name LIKE :keyword',#shop_tagsテーブルのnameカラム
+          'users.name LIKE :keyword' #usersテーブルのnameカラム
         ].join(' OR ')
       end.join(' OR '),
       *keywords_array.map { |keyword| { keyword: "%#{keyword}%" } }
