@@ -71,10 +71,10 @@ ActiveRecord::Schema.define(version: 2023_08_19_145920) do
     t.text "shop_introduction", null: false
     t.string "shop_postal_code", null: false
     t.string "shop_address", null: false
-    t.integer "stay_weekday", default: 0, null: false
+    t.integer "stay_weekday", null: false
     t.integer "stay_time_start", null: false
     t.integer "stay_time_end", null: false
-    t.integer "congestion_degree", default: 0, null: false
+    t.integer "congestion_degree", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "save_status", default: 0, null: false
@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(version: 2023_08_19_145920) do
     t.string "name", default: "", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.text "introduction", default: ""
+    t.string "introduction", default: ""
     t.boolean "is_deleted", default: false, null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
