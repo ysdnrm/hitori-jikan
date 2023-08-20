@@ -1,6 +1,7 @@
- <!--コメントフォーム-->
-<!--非同期には　local: false　が必要-->
-<%= form_with model: [post, post_comment], local: false do |f| %>
-   <%= f.text_area :comment, rows: '4', placeholder: "ここにコメントを書いてください", class: "w-100 text-area" %>
-   <%= f.submit "コメント送信" %>
+ <!--コメントフォーム（ログインしていたら表示）-->
+<% if user_signed_in? %>
+  <%= form_with model: [post, post_comment], local: false do |f| %>
+    <%= f.text_area :comment, rows: '4', placeholder: "ここにコメントを書いてください", class: "w-100 text-area" %>
+    <%= f.submit "コメント送信" %>
+  <% end %>
 <% end %>
