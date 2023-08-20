@@ -54,7 +54,7 @@ class Post < ApplicationRecord
   scope :search_by_keywords, ->(keywords) {
     keywords_array = keywords.split(/\s+/) # キーワードをスペースで分割して配列化
 
-    self.joins(:post_shop_tags).joins(:shop_tags).where( 
+    self.joins(:post_shop_tags).joins(:shop_tags).joins(:user).where( 
       keywords_array.map do |_|
         [
           'shop_name LIKE :keyword',
@@ -65,7 +65,8 @@ class Post < ApplicationRecord
           'stay_time_start LIKE :keyword',
           'stay_time_end LIKE :keyword',
           'congestion_degree LIKE :keyword', # enum の場合、値の一致を確認
-          'shop_tags.name LIKE :keyword' #shop_tagsテーブルのnameカラム
+          'shop_tags.name LIKE :keyword',#shop_tagsテーブルのnameカラム
+          'users.name LIKE :keyword' #usersテーブルのnameカラム
         ].join(' OR ')
       end.join(' OR '),
       *keywords_array.map { |keyword| { keyword: "%#{keyword}%" } }
