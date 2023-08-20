@@ -1,0 +1,15 @@
+ <h2>タグが「<%= @search_shop_tag.name %>」の投稿一覧</h2>
+
+  <%# @search_shop_tag.each do |shop_tag|%>
+    <!--<i class="fa-sharp fa-solid fa-tag"></i>-->
+    <%#= link_to shop_tag.name,search_tag_posts_path(shop_tag_id: shop_tag.id) %>
+    <%#="(#{shop_tag.posts.count})" %>
+  <%# end %>
+
+  <% if @shop_tag_post_results.present? %>
+    <div class="row">
+      <%= render 'post', posts: @shop_tag_post_results %>
+    </div>
+  <% else %>
+    <p>一致する情報は見つかりませんでした</p>
+  <% end %>
