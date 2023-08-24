@@ -7,11 +7,12 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto row">
+        <!--ログイン表記-->
         <div class="login-name mx-auto text-light">
-          <% if user_signed_in? %>
-            <p>ようこそ <%= current_user.name %> さん！</p>
-          <% elsif user_signed_in? && current_user.admin? %>
-            <p>管理者　ログイン中</p>
+          <% if user_signed_in? && current_user.admin? %>
+            <p>管理者ログイン中</p>
+          <% elsif user_signed_in? %>
+            <p>ようこそ <%= current_user.name %>さん！</p>
           <% end %>
         </div>
 

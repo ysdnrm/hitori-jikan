@@ -16,58 +16,78 @@
           </div>
         <% end %>
         <!--画像登録-->
-        <%= f.label :images, "投稿画像", class: "col-4 col-form-label" %>
+        <%= f.label :images, "投稿する画像（4枚まで投稿可）", class: "col-4 col-form-label" %>
         <%= f.file_field :images, accept: "image/*", multiple: true, class: "image-item" %>
+        <!--<ul>-->
+          <%# 4.times do |i| %>
+            <%#= i+1 %> <%#= f.file_field "post[images][]", multiple: true, accept: "image/*" %>
+          <%# end %>
+        <!--  <li>画像1：<%#= file_field_tag "images[]", type: :file, accept: "image/*" %></li>-->
+        <!--  <li>画像2：<%#= file_field_tag "images[]", type: :file, accept: "image/*" %></li>-->
+        <!--  <li>画像3：<%#= file_field_tag "images[]", type: :file, accept: "image/*" %></li>-->
+        <!--  <li>画像4：<%#= file_field_tag "images[]", type: :file, accept: "image/*" %></li>-->
+        <!--</ul>-->
       </div>
       <div class="form-group row">
         <%= f.label :shop_name, "お店の名前", class: "col-4 col-form-label" %>
-        <%= f.text_field :shop_name, class: "col-7 form-control", placeholder: "店舗名" %>
+        <%= f.text_field :shop_name, class: "col-7 form-control", placeholder: "例）○○店" %>
       </div>
       <div class="form-group row">
         <%= f.label :shop_introduction, "お店の紹介文", class: "col-4 col-form-label" %>
-        <%= f.text_area :shop_introduction, class: "col-7 form-control", placeholder: "ここに紹介したいことを入力してください。" %>
+        <%= f.text_area :shop_introduction, class: "col-7 form-control", rows: "4", placeholder: "例）レトロな雰囲気で、ゆったりとした時間を過ごせます！" %>
       </div>
       <div class="form-group row">
-        <!--<label>タグ(,で区切ると複数タグ登録できます)</label>-->
-        <%= f.label :name, "タグ(,で区切ると複数タグ登録できます)", class: "col-4 col-form-label" %>
-        <%= f.text_field :name,value: tag_list, class: 'col-7 form-control' %>
+        <%= f.label :name, "タグ(,で区切ると複数登録できます)", class: "col-4 col-form-label" %>
+        <%= f.text_field :name,value: shop_tags, class: 'col-7 form-control', placeholder: "例）レトロ,コーヒーが美味しい" %>
       </div>
       <div class="form-group row">
         <%= f.label :shop_postal_code, "お店の郵便番号(ハイフンなし）", class: "col-4 col-form-label" %>
-        <%= f.text_field :shop_postal_code, class: "col-7 form-control", placeholder: "0000000"%>
+        <%= f.text_field :shop_postal_code, class: "col-7 form-control", placeholder: "例）8901234"%>
       </div>
       <div class="form-group row">
         <!--郵便番号からの自動入力にする-->
         <%= f.label :shop_address, "お店の住所", class: "col-4 col-form-label" %>
-        <%= f.text_field :shop_address, class: "col-7 form-control", placeholder: "鹿児島県鹿児島市中央町1-1" %>
+        <%= f.text_field :shop_address, class: "col-7 form-control", placeholder: "例）鹿児島県鹿児島市中央町1-2-34" %>
       </div>
       <!--曜日選択-->
       <div class="form-group row">
         <%= f.label :stay_weekday, "お店を利用した曜日", class: "col-4 col-form-label" %>
-        <%= f.select :stay_weekday, Post.stay_weekdays_i18n.invert, {},{class: "form-select", include_blank: "選択してください"} %>
+        <%= f.select :stay_weekday, Post.stay_weekdays_i18n.invert,{class: "form-select", include_blank: "選択してください"} %>
       </div>
       <!--時間帯-->
       <div class="form-group row">
         <!--選択式にする？-->
         <%= f.label :stay_time, "お店を利用した時間帯", class: "col-4 col-form-label" %>
-        <%= f.text_field :stay_time_start, class: "col-3 form-control", placeholder: "11:00" %>
-        <%= f.text_field :stay_time_end, class: "col-3 form-control", placeholder: "14:00" %>
+        <%#= f.text_field :stay_time_start, class: "col-3 form-control", placeholder: "11:00" %>
+        <%#= f.text_field :stay_time_end, class: "col-3 form-control", placeholder: "14:00" %>
+        <%= f.select :stay_time_start, *[1..24], {:prompt => "時間選択"}, class:"mr-1" %> 時頃〜
+        <%= f.select :stay_time_end, *[1..24], {:prompt => "時間選択"}, class:"mx-1" %> 時頃に利用した
       </div>
       <!--混み具合選択-->
       <div class="form-group row">
         <%= f.label :congestion_degree, "お店の混み具合", class: "col-4 col-form-label" %>
-        <%= f.select :congestion_degree, Post.congestion_degrees_i18n.invert, {},{class: "form-select", include_blank: "選択してください"} %>
+        <%= f.select :congestion_degree, Post.congestion_degrees_i18n.invert,{class: "form-select", required: true, include_blank: "選択してください"} %>
       </div>
       
       <div class="form-group row" >
-        <%= f.label :save_status, "投稿・下書き", class: "col-4 col-form-label" %>
-        <%= f.select :save_status, Post.save_statuses.keys.map { |k| [t("enums.post.save_status.#{k}"),k]}, {}, {class: "custom-select w-25"} %>
+        <%= f.label :save_status, "公開・非公開", class: "col-4 col-form-label" %>
+        <%= f.select :save_status, Post.save_statuses.keys.map { |k| [t("enums.post.save_status.#{k}"),k]}, {}, {class: "form-select"} %>
         <%#= f.select :save_status, Post.save_status_i18n.invert, {},{class: "form-select" %>
       </div>
 
-    <div class="form-group text-center">
+    <!--<div class="form-group text-center">-->
+      <%# if request.path_info == new_post_path %>
+        <%#= f.submit "新規投稿", class: "btn btn-success px-4 py-2" %>
+      <%# else %>
+        <%#= f.submit "変更を保存", class: "btn btn-success px-4 py-2" %>
+      <%# end %>
+    <!--</div>-->
+    
+  <div class="form-group text-center">
       <% if request.path_info == new_post_path %>
-        <%= f.submit "新規投稿", class: "btn btn-success px-4 py-2" %>
+
+          <%= f.submit "送信する", class: "btn btn-success px-4 py-2" %>
+
       <% else %>
         <%= f.submit "変更を保存", class: "btn btn-success px-4 py-2" %>
       <% end %>

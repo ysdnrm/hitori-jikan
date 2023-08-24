@@ -1,6 +1,5 @@
 class Post < ApplicationRecord
-  # 複数画像投稿
-  has_many_attached :images
+ 
   # アソシエーション
   belongs_to :user
   has_many :post_comments, dependent: :destroy
@@ -18,12 +17,24 @@ class Post < ApplicationRecord
   enum congestion_degree: { empty: 0, half: 1, full: 2, over: 3 }
   # 下書き機能.     {投稿する: 0、下書きする: 1 }
   enum save_status: { published: 0, draft: 1 }
+  
+  # 複数画像投稿
+  has_many_attached :images
+  
+  # after_create :attach_default_image
+  
+  # def attach_default_image
+  #   if images.none?(&:attached?)
+  #     file_path = Rails.root.join('app/assets/images/no_image.jpg')
+  #     images.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+  #   end
+  # end
 
   # 投稿画像について
-  def get_image#(height, width)
-    unless image.attached?
-      file_path = Rails.root.join('app/assets/images/no_image.jpg')
-      image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+  def get_images#(height, width)
+    unless images.attached?
+     file_path = Rails.root.join('app/assets/images/no_image.jpg')
+     images.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
     end
     images#.variant(resize_to_limit: [height, width]).processed
   end
@@ -84,6 +95,10 @@ class Post < ApplicationRecord
     validates :stay_time_start
     validates :stay_time_end
     validates :congestion_degree
+    validates :images, length: { maximum: 4, message: "は4枚までしかアップロードできません" }
   end
+  
+ 
+  # validates :save_status, inclusion: { in: Article.save_statuses.keys }
 
 end

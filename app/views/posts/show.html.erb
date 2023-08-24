@@ -74,7 +74,12 @@
               <td>お店の混み具合</td>
               <td><%= @post.congestion_degree_i18n %></td>
             </tr>
-
+            
+            <tr>
+              <td>投稿・下書き</td>
+              <td><%= @post.save_status_i18n %></td>
+            </tr>
+  
           </tbody>
         </table>
       </div>
