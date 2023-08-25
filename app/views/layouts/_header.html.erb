@@ -1,7 +1,7 @@
 <header>
   <nav class="navbar navbar-expand-lg navbar-dark bg-info">
     <div class="container mx-auto">
-      <a class="navbar-brand " href="/"><%#= image_tag('na.png') %>ロゴ</a>
+      <a class="navbar-brand " href="/"><%= image_tag('logo.png', size: '150x120') %></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -20,32 +20,39 @@
           <% if user_signed_in? %><!--ユーザーがログインしているとき-->
           <li>
             <%= link_to about_path,class: 'nav-link text-light' do %>
+              <i class="fas fa-exclamation-circle"></i>
               About
             <% end %>
           </li>
+          
           <li>
             <%= link_to new_post_path, class: 'nav-link text-light' do %>
+              <i class="fas fa-paper-plane"></i>
               投稿する
             <% end %>
           </li>
           <li>
             <%= link_to posts_path, class: 'nav-link text-light' do %>
+              <i class="fas fa-list-ul"></i>
               投稿一覧
             <% end %>
           </li>
           <li>
             <%= link_to user_path(current_user), class: 'nav-link text-light' do %>
+              <i class="fas fa-user-circle"></i>
               マイページ
             <% end %>
           </li>
           <li>
             <%= link_to confirm_posts_path, class: 'nav-link text-light' do %>
+              <i class="fas fa-pen-nib"></i>
               下書き一覧
             <% end %>
           </li>
 
           <li>
             <%= link_to destroy_user_session_path, method: :delete,class: 'nav-link text-light' do %>
+              <i class="fas fa-sign-out-alt"></i>
               ログアウト
             <% end %>
           </li>
@@ -58,24 +65,28 @@
 
           <li>
             <%= link_to about_path,class: 'nav-link text-light' do %>
+              <i class="fas fa-exclamation-circle"></i>
                About
             <% end %>
           </li>
 
           <li>
             <%= link_to new_user_registration_path,class: 'nav-link text-light' do %>
+              <i class="fas fa-user-plus"></i>
                新規登録
             <% end %>
           </li>
 
           <li>
             <%= link_to new_user_session_path ,class: 'nav-link text-light' do %>
-               ログイン
+              <i class="fas fa-sign-in-alt"></i>
+              ログイン
             <% end %>
           </li>
 
           <li>
             <%= link_to posts_path, class: 'nav-link text-light' do %>
+              <i class="fas fa-list-ul"></i>
               投稿一覧
             <% end %>
           </li>

@@ -33,10 +33,10 @@ class Post < ApplicationRecord
   # 投稿画像について
   def get_images#(height, width)
     unless images.attached?
-     file_path = Rails.root.join('app/assets/images/no_image.jpg')
-     images.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+      file_path = Rails.root.join('app/assets/images/no_image.jpg')
+      images.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
     end
-    images#.variant(resize_to_limit: [height, width]).processed
+      images#.variant(resize_to_limit: [height, width]).processed
   end
 
   # タグのリレーションのみ記載

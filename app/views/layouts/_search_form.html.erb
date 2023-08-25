@@ -1,5 +1,8 @@
 <!--検索窓-->
 <%= form_tag search_posts_path, method: :get do %>
   <%= text_field_tag :keywords, params[:keywords], placeholder: "店舗名、タグ...", required: true %>
-  <%= submit_tag "検索" %>
+  <%= button_tag type: "submit", class: "btn btn-default" do %>
+    <i class="fas fa-search"></i>
+  <% end %>
+  <%#= submit_tag "検索"%>
 <% end %>

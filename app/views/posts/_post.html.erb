@@ -3,18 +3,18 @@
   <div class="col-3">
     <!--投稿者-->
     <%= link_to user_path(post.user.id) do %>
-      <%= image_tag post.user.get_profile_image(60,60), class:"mt-3 rounded-circle"; %>
+      <%= image_tag post.user.get_profile_image(40,40), class:"mt-3 rounded-circle"; %>
       <%= post.user.name %>
     <% end %>
     <!--投稿内容-->
     <%= link_to post_path(post.id) ,style: "color: black;" do %>
-      <%= image_tag post.images[0], class: "rounded",size:"250x200", class: "rounded-bottom" %>
-      <p>店名：<%= post.shop_name %></p>
-      <p>住所：<%= post.shop_address %></p>
+      <%= image_tag post.images[0], class: "rounded",size:"150x100", class: "rounded-bottom" %>
+      <p><%= post.shop_name %></p>
+      <p><i class="fas fa-map-marker-alt"></i><%= post.shop_address %></p>
       <p id="favorite_buttons_<%= post.id %>" >
         <%= render "favorites/favorite", post: post %>
       </p>
-      <p>コメント：<%= post.post_comments.count %></p>
+      <p><i class="far fa-comment-dots"></i></i><%= post.post_comments.count %></p>
     <% end %>
     
   </div>

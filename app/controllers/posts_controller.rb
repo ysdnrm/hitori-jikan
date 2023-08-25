@@ -99,4 +99,4 @@ class PostsController < ApplicationController
 
 end
 
-
+# , images: []

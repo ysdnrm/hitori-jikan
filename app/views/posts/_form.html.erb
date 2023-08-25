@@ -18,6 +18,7 @@
         <!--画像登録-->
         <%= f.label :images, "投稿する画像（4枚まで投稿可）", class: "col-4 col-form-label" %>
         <%= f.file_field :images, accept: "image/*", multiple: true, class: "image-item" %>
+        <%#= f.file_field :image%>
         <!--<ul>-->
           <%# 4.times do |i| %>
             <%#= i+1 %> <%#= f.file_field "post[images][]", multiple: true, accept: "image/*" %>
