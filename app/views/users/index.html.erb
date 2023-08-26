@@ -1,5 +1,4 @@
 <!--管理者のみのユーザー確認ページ-->
- <% if user_signed_in? %>
    <% if current_user.admin? %>
      <% sum = 0 %>
        <% @users.each do |u| %>
@@ -9,4 +8,3 @@
        <% end %>
      <p>登録者合計：<%= sum %></p>
     <% end %>
-  <% end %>

@@ -14,10 +14,10 @@ class PostsController < ApplicationController
     # @post.save_status = params[:post][:save_status]
 
     if @post.save
-      @post.save_shop_tags(shop_tags)
+      @post.save_shop_tags(@shop_tags)
       redirect_to post_path(@post)
     else
-      render "new"
+      render 'new'
     end
 
   end

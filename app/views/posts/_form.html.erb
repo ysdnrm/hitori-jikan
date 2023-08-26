@@ -3,7 +3,9 @@
       <div class="form-group row mt-5">
         <!--画像があったら-->
         <% if @post.images.attached? %>
+          <div>
           <p>選択済みの画像（削除する画像にチェックをつけてください）</p>
+          </div>
           <div style="display: flex; flex-wrap: wrap; width: 750px;">
             <% @post.images.each do |image| %>
               <div style="display: flex; margin:5px 5px 5px 0;">
@@ -29,19 +31,19 @@
         <!--  <li>画像4：<%#= file_field_tag "images[]", type: :file, accept: "image/*" %></li>-->
         <!--</ul>-->
       </div>
-      <div class="form-group row">
+      <div class="row form-group">
         <%= f.label :shop_name, "お店の名前", class: "col-4 col-form-label" %>
         <%= f.text_field :shop_name, class: "col-7 form-control", placeholder: "例）○○店" %>
       </div>
-      <div class="form-group row">
+      <div class="row form-group">
         <%= f.label :shop_introduction, "お店の紹介文", class: "col-4 col-form-label" %>
         <%= f.text_area :shop_introduction, class: "col-7 form-control", rows: "4", placeholder: "例）レトロな雰囲気で、ゆったりとした時間を過ごせます！" %>
       </div>
-      <div class="form-group row">
+      <div class="row form-group">
         <%= f.label :name, "タグ(,で区切ると複数登録できます)", class: "col-4 col-form-label" %>
         <%= f.text_field :name,value: shop_tags, class: 'col-7 form-control', placeholder: "例）レトロ,コーヒーが美味しい" %>
       </div>
-      <div class="form-group row">
+      <div class="row form-group">
         <%= f.label :shop_postal_code, "お店の郵便番号(ハイフンなし）", class: "col-4 col-form-label" %>
         <%= f.text_field :shop_postal_code, class: "col-7 form-control", placeholder: "例）8901234"%>
       </div>
@@ -69,7 +71,7 @@
         <%= f.label :congestion_degree, "お店の混み具合", class: "col-4 col-form-label" %>
         <%= f.select :congestion_degree, Post.congestion_degrees_i18n.invert,{class: "form-select", required: true, include_blank: "選択してください"} %>
       </div>
-      
+
       <div class="form-group row" >
         <%= f.label :save_status, "公開・非公開", class: "col-4 col-form-label" %>
         <%= f.select :save_status, Post.save_statuses.keys.map { |k| [t("enums.post.save_status.#{k}"),k]}, {}, {class: "form-select"} %>
@@ -83,14 +85,14 @@
         <%#= f.submit "変更を保存", class: "btn btn-success px-4 py-2" %>
       <%# end %>
     <!--</div>-->
-    
+
   <div class="form-group text-center">
       <% if request.path_info == new_post_path %>
 
-          <%= f.submit "送信する", class: "btn btn-success px-4 py-2" %>
+          <%= f.submit "送信する", class: "btn btn-outline-primary px-4 py-2" %>
 
       <% else %>
-        <%= f.submit "変更を保存", class: "btn btn-success px-4 py-2" %>
+        <%= f.submit "変更を保存", class: "btn btn-outline-success px-4 py-2" %>
       <% end %>
     </div>
   <% end %>

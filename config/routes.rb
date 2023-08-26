@@ -10,13 +10,16 @@ Rails.application.routes.draw do
     member do
       get :favorites
     end
+    
+   get 'users' => 'users#inde'
     # 検索
-    collection do
-      get 'search'
-    end
+    # collection do
+    #   get 'search'
+    # end
   end
 
   resources :posts do
+    # get :favorites,on: :collection
     resource :favorites, only: [:create, :destroy]
     resources :post_comments, only: [:create, :destroy]
 

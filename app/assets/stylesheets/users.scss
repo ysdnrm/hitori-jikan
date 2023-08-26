@@ -1,3 +1,17 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.user-icon {
+  // width:  180px;       /* ※縦横を同値に */
+  // height: 180px;       /* ※縦横を同値に */
+  border-radius: 50%;  /* 角丸半径を50%にする(=円形にする) */
+  background-position: center center; /* 横長画像の中央を基準に表示 */
+  border: solid 1px #777777; /* 色：グレー */
+}

@@ -61,6 +61,8 @@ gem 'devise'
 gem 'rails-i18n'
 gem 'enum_help'
 
+gem 'rmagick'
+
 gem 'dotenv-rails'
 
 group :production do
