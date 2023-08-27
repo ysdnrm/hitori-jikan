@@ -10,18 +10,18 @@ class PostsController < ApplicationController
 
     @post.user_id = current_user.id
      # 受け取った値を,で区切って配列にする
-    shop_tags = params[:post][:name].split(',')
+    @shop_tags = params[:post][:name].split(',')
     # @post.save_status = params[:post][:save_status]
-    
+
     if @post.save
-      @post.save_shop_tags(shop_tags)
+      @post.save_shop_tags(@shop_tags)
       redirect_to post_path(@post)
     else
-      render "new"
+      render 'new'
     end
-      
+
   end
-  
+
   # 下書き
   def confirm
     @posts = current_user.posts.draft.all
@@ -29,7 +29,14 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.published.all #投稿されたものだけ取得
+    @posts = Post.published.all # 公開済み（published）」のすべての投稿を取得
+    @posts_page = Post.published.all.page(params[:page]).per(8)
+  # 全てのタグを取得
+    ShopTag.all.each do |shop_tag|
+       # 投稿が0件のタグを削除
+      shop_tag.destroy if shop_tag.post_shop_tags.size == 0
+    end
+    # 0件のを削除後のタグ全て取得
     @shop_tags = ShopTag.all
   end
 
@@ -67,11 +74,12 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    post = Post.find(params[:id])
-    post.destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    flash[:notice] = "投稿が削除されました。"
     redirect_to root_path
   end
-  
+
   # タグ
   def search_tag
     # 検索結果画面でもタグ一覧表示
@@ -79,14 +87,13 @@ class PostsController < ApplicationController
     #検索されたタグを受け取る
      @search_shop_tag = ShopTag.find(params[:shop_tag_id])
     #検索されたタグに紐づく投稿を表示
-     @shop_tag_post_results = @search_shop_tag.posts
-    
-  end 
+     @shop_tag_post_results = @search_shop_tag.posts.published
+  end
 
   # 検索機能（キーワード、タグ）
   def search
     @keywords = params[:keywords] #検索ワードを格納
-    @search_results = Post.search_by_keywords(@keywords) #検索結果を格納
+    @search_results = Post.published.search_by_keywords(@keywords)#公開済み（published）」のすべての投稿を検索結果を格納
   end
 
   # 投稿データのストロングパラメータ
@@ -97,5 +104,4 @@ class PostsController < ApplicationController
   end
 
 end
-
 

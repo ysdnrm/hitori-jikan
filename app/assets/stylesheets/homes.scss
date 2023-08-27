@@ -1,3 +1,28 @@
 // Place all the styles related to the homes controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.slide {
+  margin-left: 5px;
+  position: relative; /* 親要素に対して相対位置を指定 */
+  width: 100%;
+  height: 500px; /* 必要な高さを指定 */
+  overflow: hidden; /* 高さを超える部分を隠す */
+  margin-bottom: 0;
+ }
+
+.slide-item {
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 100%;
+ display: none;
+}
+
+/* スライダーコンテナのスタイル */
+.slider-container {
+  max-width: 100%; /* スライダーの最大幅 */
+  margin: 0 auto; /* 水平中央に配置 */
+}
+
+

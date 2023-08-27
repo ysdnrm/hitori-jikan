@@ -1,6 +1,5 @@
 class Post < ApplicationRecord
-  # 複数画像投稿
-  has_many_attached :images
+
   # アソシエーション
   belongs_to :user
   has_many :post_comments, dependent: :destroy
@@ -10,27 +9,40 @@ class Post < ApplicationRecord
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
   end
-  
+
 # enum
   # 曜日選択         {日曜: 0、月曜: 1、火曜: 2、水曜: 3、木曜: 4、金曜: 5、土曜: 6、祝日: 7}
   enum stay_weekday: { sunday: 0, monday: 1, tuesday: 2, wednesday: 3, thursday: 4, friday: 5, saturday: 6, holiday: 7 }
+  WEEKDAY = {
+    '日曜' => 'sunday',
+    '月曜' => 'monday',
+    '火曜' => 'tuesday',
+    '水曜' => 'wednesday',
+    '木曜' => 'thursday',
+    '金曜' => 'friday',
+    '土曜' => 'saturday',
+    '祝日' => 'holiday',
+  }
   # 混み具合選択          {空いている: 0、半分くらい: 1、ほぼ満席: 2、待っている人も居た: 3}
   enum congestion_degree: { empty: 0, half: 1, full: 2, over: 3 }
   # 下書き機能.     {投稿する: 0、下書きする: 1 }
   enum save_status: { published: 0, draft: 1 }
 
+  # 複数画像投稿
+  has_many_attached :images
+
   # 投稿画像について
-  def get_image#(height, width)
-    unless image.attached?
+  def get_images
+    unless images.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
-      image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+      images.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
     end
-    images#.variant(resize_to_limit: [height, width]).processed
+      images
   end
 
   # タグのリレーションのみ記載
   has_many :post_shop_tags, dependent: :destroy
-  has_many :shop_tags, through: :post_shop_tags
+  has_many :shop_tags, through: :post_shop_tags, dependent: :destroy
 
   def save_shop_tags(tags)
   # タグが存在していれば、タグの名前を配列として全て取得
@@ -53,8 +65,9 @@ class Post < ApplicationRecord
   # キーワード、タグ検索
   scope :search_by_keywords, ->(keywords) {
     keywords_array = keywords.split(/\s+/) # キーワードをスペースで分割して配列化
+    weekday = WEEKDAY.filter_map { |key, value| value if keywords_array.first.include?(key) }.first
 
-    self.joins(:post_shop_tags).joins(:shop_tags).joins(:user).where( 
+    self.joins(:post_shop_tags).joins(:shop_tags).joins(:user).where(
       keywords_array.map do |_|
         [
           'shop_name LIKE :keyword',
@@ -69,10 +82,10 @@ class Post < ApplicationRecord
           'users.name LIKE :keyword' #usersテーブルのnameカラム
         ].join(' OR ')
       end.join(' OR '),
-      *keywords_array.map { |keyword| { keyword: "%#{keyword}%" } }
-    ).uniq  #投稿が重複しないように
+      *keywords_array.map { |keyword| { keyword: "%#{keyword}%" }
+      }
+    ).or(self.where(stay_weekday: weekday)).uniq  #投稿が重複しないように
   }
-
 
   # バリデーション
   with_options presence: true do
@@ -85,5 +98,7 @@ class Post < ApplicationRecord
     validates :stay_time_end
     validates :congestion_degree
   end
+
+  validates :images, length: { maximum: 4, message: "は4枚までしかアップロードできません" }
 
 end

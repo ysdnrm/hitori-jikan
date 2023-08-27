@@ -1,0 +1,22 @@
+<!--ジャンル検索サイドバー-->
+<table class="tag-table" >
+
+  <thead class="tag-table-title1">
+    <tr>
+      <th class="tag-table-title2 pb-2">タグ一覧</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% shop_tags.each do |shop_tag|%>
+    <tr>
+      <td class="tag-table-item pb-2">
+        <i class="fa-sharp fa-solid fa-tag"></i>
+        <%= link_to shop_tag.name,search_tag_posts_path(shop_tag_id: shop_tag.id) %>
+        <%="(#{shop_tag.posts.count})" %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+
+</table>

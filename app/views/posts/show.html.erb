@@ -1,26 +1,27 @@
 <div class="container mt-5 pb-5">
   <div class="form-group">
-    
-    <h2 class="mb-3 ml-5 text-center">投稿詳細</h2>
-    
+
+    <h2 class="mb-3 ml-5 text-center font-weight-bold">投稿の内容</h2>
+
     <div class="row mt-5 mb-5">
-      
+
       <div class="col-lg-7">
         <% if @post.images.attached? %>
           <% @post.images.each do |image| %>
-            <%= image_tag image.variant(resize: '300x300') %>
+            <%= image_tag image.variant(resize: '300x250'), style: "object-fit: cover;", class: "post-item" %>
           <% end %>
+        <% else %>
+          <%= image_tag('no_image.jpg', size: '300x250') %>
         <% end %>
-        
+
         <div id="favorite_buttons_<%= @post.id %>" >
           <%= render "favorites/favorite", post: @post %>
         </div>
-        
+
         <div class="pt-3">
           <%= link_to user_path(@post.user.id) ,style: "color: black;" do %>
-      　     <%= image_tag @post.user.get_profile_image(100,100), class:"mt-3 rounded-circle"; %>
-            <p>
-              このお店を紹介した人<br>
+            <p>このお店を紹介した人
+      　     <%= image_tag @post.user.get_profile_image, size: "50x50", class: "rounded-circle user-icon"; %>
               <%= @post.user.name %>
             </p>
           <% end %>
@@ -39,7 +40,7 @@
               <td>お店の紹介文</td>
               <td><%= @post.shop_introduction %></td>
             </tr>
-    
+
             <tr>
               <td>タグ</td>
               <td>
@@ -75,32 +76,35 @@
               <td><%= @post.congestion_degree_i18n %></td>
             </tr>
 
+            <tr>
+              <td>公開・非公開</td>
+              <td><%= @post.save_status_i18n %></td>
+            </tr>
+
           </tbody>
         </table>
       </div>
-      
+
     </div>
-    
+
     <!--ボタン-->
     <div>
-      <!--ログインしているか？-->
-      <%# if user_signed_in? %>
         <!--投稿者本人だったら-->
         <% if @post.user == current_user %>
           <div class="text-center">
-            <%= link_to "編集する", edit_post_path, class: "btn btn-primary mt-3 ml-5 px-4 py-2" %>
-            <%= link_to "削除する", post_path(@post), method: :delete, class: "btn btn-danger mt-3 ml-5 px-4 py-2" %>
+            <%= link_to "編集する", edit_post_path, class: "btn btn-outline-success mt-3 ml-5 px-4 py-2" %>
+            <%= link_to "削除する", post_path(@post), method: :delete, class: "btn btn-outline-danger mt-3 ml-5 px-4 py-2" %>
           </div>
 
         <!--管理者だったら-->
-        <% elsif current_user == @user || current_user.admin? %>
+        <% elsif current_user&.admin? %>
           <div class="text-center">
-            <%= link_to "投稿削除(管理者用）", post_path(@post), method: :delete, class: "btn btn-warning mt-3 ml-5 px-4 py-2" %>
+            <%= link_to "投稿削除(管理者用）", post_path(@post), method: :delete, class: "btn btn-outline-warning mt-3 ml-5 px-4 py-2" %>
           </div>
         <% end %>
       <%# end %>
     </div>
-    
+
     <!--コメント一覧-->
     <div id="comments_area">
       <%= render 'post_comments/comments', post: @post %>

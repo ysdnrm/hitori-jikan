@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="mt-4">
+  <h2 class="mb-3 text-center font-weight-bold">会員一覧</h2>
+  
+  <table class="table">
+    <thead>
+      <tr>
+        <th>会員ID</th>
+        <th>ユーザー名</th>
+        <th>メールアドレス</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @users.each do |user| %>
+      <tr>
+          <td><%= user.id %></td>
+          <td><%= image_tag user.get_profile_image, size: "50x50", class: "user-icon" %><%= user.name %>さん</td>
+          <td><%= user.email %></td>
+          <td><%= link_to "詳細", user_path(user.id) %></td>
+          <td><%= link_to "削除", admin_user_path(user), method: :delete, class: "text-danger", data: { confirm: "本当に削除しますか？" } %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  </div>
+</div>

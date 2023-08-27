@@ -4,27 +4,28 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:favorites]
   # before_action user_admin, only: [:index]
 
-  
+
   def index
     # 管理者用
     @users = User.all
   end
-  
+
   def show
     @user = User.find(params[:id])
-    @posts = @user.posts
+    @posts = @user.posts.published
+    @posts_page = @user.posts.published.page(params[:page]).per(8)
   end
-  
+
   def edit
     @user = User.find(params[:id])
   end
-  
+
   def update
     @user = User.find(params[:id])
     @user.update(user_params)
     redirect_to user_path(@user.id)
   end
-  
+
   # いいねした投稿一覧
   def favorites
     favorites = Favorite.where(user_id: @user.id).pluck(:post_id)
@@ -32,11 +33,11 @@ class UsersController < ApplicationController
   end
 
   private
-  
+
   def user_params
     params.require(:user).permit(:name, :profile_image, :email, :introduction)
   end
-  
+
   def user_admin
     @users = User.all
     if  current_user.admin == false
@@ -45,12 +46,12 @@ class UsersController < ApplicationController
         render action: "index"
     end
   end
-  
+
   def set_user
     @user = User.find(params[:id])
   end
 
-  
+
   # 他のユーザーからのアクセス制限(is_matching_login_userというメソッドにまとめる)
   def is_matching_login_user
     user = User.find(params[:id])

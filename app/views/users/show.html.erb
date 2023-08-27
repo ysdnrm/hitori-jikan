@@ -1,27 +1,23 @@
 <!-- ユーザーの詳細 -->
+<%= stylesheet_link_tag "users", :media => "all" %>
 <div class="container">
 <div class="mt-4">
-  <!--管理者用のユーザー一覧のリンク-->
-   <% if user_signed_in? %>
-     <% if current_user.admin? %>
-       <%= link_to "管理者用ユーザー一覧", users_path, class: "pull-right btn  btn-sm btn-success col-3 mb-3 font-weight-bold"  %>
-     <% end %>
-   <% end %>
-
+  
     <h3 class="font-weight-bold">マイページ</h3>
     <!--本人だったら-->
     <% if @user.id == current_user.id %>
       <div class="mt-4">
         <span class="font-weight-bold">登録情報</span>
-        <%= link_to "編集する", edit_user_path(@user), class: "pull-right btn  btn-sm btn-success col-2 mx-3 font-weight-bold"  %>
-        <%= link_to "いいねした投稿", favorites_user_path(@user), class: "pull-right btn  btn-sm btn-success col-2 mx-3 font-weight-bold" %>
+        <%= link_to "編集する", edit_user_path(@user), class: "pull-right btn  btn-sm btn-outline-secondary col-2 mx-3 font-weight-bold"  %>
+        <%= link_to "いいねした投稿", favorites_user_path(@user), class: "pull-right btn  btn-sm btn-outline-info col-2 mx-3 font-weight-bold" %>
+        <%= link_to "非公開中の投稿", confirm_posts_path(@user), class: "pull-right btn  btn-sm btn-outline-warning col-2 mx-3 font-weight-bold" %>
       </div>
+
+
+      <div class="row">
+        <%= image_tag @user.get_profile_image, size: "200x200", class: "user-icon mt-3" %>
       <!--登録情報テーブル-->
-      <table class="teble table-bordered px-2 col-8 mt-3">
-        <tr>
-          <th class="col-3 table-active py-2">アイコン画像</th>
-          <td class="pl-3"><%= image_tag @user.get_profile_image(100,100) %></td>
-        </tr>
+      <table class="teble table-bordered px-2 col-8 mt-3 ml-5">
         <tr>
           <th class="col-3 table-active py-2">ユーザー名</th>
           <td class="pl-3"><%= @user.name %></td>
@@ -39,15 +35,29 @@
         <!--  <td class="pl-3"><%#= @user.encrypted_password %></td>-->
         <!--</tr>-->
       </table>
+      </div>
     <% else %>
-      <%= image_tag @user.get_profile_image(100,100) %>
-      <p><%= @user.name %></p>
-      <p><%= @user.introduction %></p>
+    <div class="row">
+      <%= image_tag @user.get_profile_image, size: "200x200", class: "user-icon mt-3" %>
+      <table class="teble table-bordered px-2 col-7 mt-3 ml-5">
+        <tr>
+          <th class="col-3 table-active py-2">ユーザー名</th>
+          <td class="pl-3"><%= @user.name %></td>
+        </tr>
+        <tr>
+          <th class="col-3 table-active py-2">自己紹介</th>
+          <td class="pl-3"><%= @user.introduction %></td>
+        </tr>
+      </table>
+    </div>
     <% end %>
     <!-- ユーザーの投稿一覧 -->
     <h3 class="font-weight-bold mt-5">投稿一覧</h3>
     <div class="row">
-      <%= render 'posts/post', posts: @posts, user: @user %>
+      <%= render 'posts/post', posts: @posts_page, user: @user %>
+    </div>
+    <div class="justify-content-center">
+      <%= paginate @posts_page %>
     </div>
 
 </div>

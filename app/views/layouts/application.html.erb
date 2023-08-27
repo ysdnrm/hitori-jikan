@@ -6,12 +6,62 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <script src="https://kit.fontawesome.com/0c41007c71.js" crossorigin="anonymous"></script>
-    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kurenaido&family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
   </head>
 
   <body>
     <%= render 'layouts/header' %>
-    <%= yield %>
+    <main class="pb-5">
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+      <%= yield %>
+    </main>
+
+   <footer class="bg-secondary text-white pt-3 pb-2">
+      <div class="container">
+        <div class="row no-gutters">
+          <div class="col-md-4 mt-3">
+            <p>KAGOSHIMAひとり時間</p>
+          </div>
+          <div class="col-md-8">
+            <ul class="p-0 list-unstyled row">
+              <div class="col-3">
+              <li>
+               <%= link_to root_path,class: 'nav-link text-white' do %>
+                <i class="fas fa-home"></i>
+                トップ
+                <% end %>
+              </li>
+              </div>
+              <div class="col-3">
+              <li>
+                <%= link_to about_path,class: 'nav-link text-white' do %>
+                  <i class="fas fa-exclamation-circle"></i>
+                  About
+                <% end %>
+              </li>
+              </div>
+              <div class="col-3">
+              <li>
+                <% if user_signed_in? %>
+                  <% if current_user.admin? %>
+                    <%= link_to admin_users_path,class: 'nav-link text-white' do %>
+                      <i class="fas fa-users"></i>
+                      会員一覧（管理者用）
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </li>
+              </div>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+ 
   </body>
 </html>

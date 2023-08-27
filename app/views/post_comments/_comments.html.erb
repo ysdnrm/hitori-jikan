@@ -1,21 +1,23 @@
 <!--コメント一覧-->
 <div class=" align-items-end">
-  <p>コメント件数：<%= post.post_comments.count %></p>
+  <p><i class="fas fa-comment-alt"></i>コメント件数：<%= post.post_comments.count %></p>
   <% if user_signed_in? %>
   <!--ログインしていたらコメント表示-->
     <% post.post_comments.each do |post_comment| %>
-      <div>
-        <%= image_tag post_comment.user.get_profile_image(60,60), class:"mt-3 rounded-circle" %>
-        <%= link_to post_comment.user.name, user_path(post_comment.user) %>
-        <%= post_comment.comment %>
+      <div class="row d-flex align-items-center">
+        <%= image_tag post_comment.user.get_profile_image, size: "50x50", class: "mr-2 rounded-circle user-icon" %>
+        <%= link_to post_comment.user.name, user_path(post_comment.user), class: "mr-2" %>
+        <div class="mr-2">
+          <%= post_comment.comment %>
+        </div>
         
         <% if post_comment.user.id == current_user.id %>
         <!--コメント投稿者の場合の削除ボタン-->
-          <%= link_to "コメント削除", post_post_comment_path(post_comment.post, post_comment), method: :delete, remote: true, class: "btn btn-sm btn-danger" %><br>
+          <%= link_to "コメント削除", post_post_comment_path(post_comment.post, post_comment), method: :delete, remote: true, class: "btn btn-sm btn-outline-danger" %><br>
           
         <% elsif current_user == @user || current_user.admin? %>
         <!--管理者の場合の削除ボタン-->
-          <%= link_to "コメント削除(管理者用）", post_post_comment_path(post_comment.post, post_comment), method: :delete, remote: true, class: "btn btn-sm btn-warning" %><br>
+          <%= link_to "コメント削除(管理者用）", post_post_comment_path(post_comment.post, post_comment), method: :delete, remote: true, class: "btn btn-sm btn-outline-warning" %><br>
         <% end %>
       
       </div>
