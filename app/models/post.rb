@@ -32,17 +32,17 @@ class Post < ApplicationRecord
   has_many_attached :images
 
   # 投稿画像について
-  def get_images#(height, width)
+  def get_images
     unless images.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
       images.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
     end
-      images#.variant(resize_to_limit: [height, width]).processed
+      images
   end
 
   # タグのリレーションのみ記載
   has_many :post_shop_tags, dependent: :destroy
-  has_many :shop_tags, through: :post_shop_tags
+  has_many :shop_tags, through: :post_shop_tags, dependent: :destroy
 
   def save_shop_tags(tags)
   # タグが存在していれば、タグの名前を配列として全て取得

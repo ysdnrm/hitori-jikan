@@ -1,4 +1,4 @@
-<div class="container  mt-5 pb-5">
+<div class="container  pb-5">
   <div class="row pt-5">
     <!--タグ一覧-->
     <div class="col-md-3 mt-3">
@@ -7,11 +7,14 @@
 
 
   <div class="col-md-9">
-    <h2 class="mb-3 text-center">投稿一覧</h2>
+    <h2 class="mb-3 text-center font-weight-bold">投稿の一覧</h2>
       <div class="row">
-        <%= render 'post', posts: @posts %>
+        <%= render 'post', posts: @posts_page %>
+      </div>
+      <div class="justify-content-center">
+        <%= paginate @posts_page %>
       </div>
   </div>
-  
+
   </div>
 </div>

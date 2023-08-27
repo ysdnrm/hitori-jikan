@@ -30,6 +30,13 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.published.all # 公開済み（published）」のすべての投稿を取得
+    @posts_page = Post.published.all.page(params[:page]).per(8)
+  # 全てのタグを取得
+    ShopTag.all.each do |shop_tag|
+       # 投稿が0件のタグを削除
+      shop_tag.destroy if shop_tag.post_shop_tags.size == 0
+    end
+    # 0件のを削除後のタグ全て取得
     @shop_tags = ShopTag.all
   end
 
@@ -67,8 +74,9 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    post = Post.find(params[:id])
-    post.destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    flash[:notice] = "投稿が削除されました。"
     redirect_to root_path
   end
 
@@ -80,8 +88,6 @@ class PostsController < ApplicationController
      @search_shop_tag = ShopTag.find(params[:shop_tag_id])
     #検索されたタグに紐づく投稿を表示
      @shop_tag_post_results = @search_shop_tag.posts.published
-    
-
   end
 
   # 検索機能（キーワード、タグ）
@@ -99,4 +105,3 @@ class PostsController < ApplicationController
 
 end
 
-# , images: []

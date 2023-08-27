@@ -5,21 +5,18 @@ Rails.application.routes.draw do
   root to: 'homes#top'
   get '/about' => 'homes#about', as: 'about'
 
-  resources :users, only: [:index, :show, :edit, :update] do
+  resources :users, only: [:show, :edit, :update] do
     # いいねした投稿一覧
     member do
       get :favorites
     end
-    
-   get 'users' => 'users#inde'
-    # 検索
-    # collection do
-    #   get 'search'
-    # end
+  end
+
+  namespace :admin do
+    resources :users, only: [:index, :destroy]
   end
 
   resources :posts do
-    # get :favorites,on: :collection
     resource :favorites, only: [:create, :destroy]
     resources :post_comments, only: [:create, :destroy]
 
@@ -30,12 +27,5 @@ Rails.application.routes.draw do
     end
 
   end
-
-  # タグの検索で使用する
-  # get "search_tag" => "posts#search_tag"
-  # get 'search', to: 'posts#search', as: 'search_posts'
-
-
-
 
 end

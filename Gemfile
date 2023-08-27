@@ -62,6 +62,7 @@ gem 'rails-i18n'
 gem 'enum_help'
 
 gem 'rmagick'
+gem 'kaminari','~> 1.2.1'
 
 gem 'dotenv-rails'
 

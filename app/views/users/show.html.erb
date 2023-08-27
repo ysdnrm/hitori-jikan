@@ -2,13 +2,7 @@
 <%= stylesheet_link_tag "users", :media => "all" %>
 <div class="container">
 <div class="mt-4">
-  <!--管理者用のユーザー一覧のリンク-->
-   <% if user_signed_in? %>
-     <% if current_user.admin? %>
-       <%= link_to "管理者用ユーザー一覧", users_path, class: "btn  btn-sm btn-outline-primary col-3 mb-3 font-weight-bold"  %>
-     <% end %>
-   <% end %>
-
+  
     <h3 class="font-weight-bold">マイページ</h3>
     <!--本人だったら-->
     <% if @user.id == current_user.id %>
@@ -18,8 +12,8 @@
         <%= link_to "いいねした投稿", favorites_user_path(@user), class: "pull-right btn  btn-sm btn-outline-info col-2 mx-3 font-weight-bold" %>
         <%= link_to "非公開中の投稿", confirm_posts_path(@user), class: "pull-right btn  btn-sm btn-outline-warning col-2 mx-3 font-weight-bold" %>
       </div>
-      
-    
+
+
       <div class="row">
         <%= image_tag @user.get_profile_image, size: "200x200", class: "user-icon mt-3" %>
       <!--登録情報テーブル-->
@@ -60,7 +54,10 @@
     <!-- ユーザーの投稿一覧 -->
     <h3 class="font-weight-bold mt-5">投稿一覧</h3>
     <div class="row">
-      <%= render 'posts/post', posts: @posts, user: @user %>
+      <%= render 'posts/post', posts: @posts_page, user: @user %>
+    </div>
+    <div class="justify-content-center">
+      <%= paginate @posts_page %>
     </div>
 
 </div>

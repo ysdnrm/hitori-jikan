@@ -1,17 +1,17 @@
 <div class="container mt-5 pb-5">
   <div class="form-group">
 
-    <h2 class="mb-3 ml-5 text-center">投稿詳細</h2>
+    <h2 class="mb-3 ml-5 text-center font-weight-bold">投稿の内容</h2>
 
     <div class="row mt-5 mb-5">
 
       <div class="col-lg-7">
         <% if @post.images.attached? %>
           <% @post.images.each do |image| %>
-            <%= image_tag image.variant(resize: '300x300') %>
+            <%= image_tag image.variant(resize: '300x250'), style: "object-fit: cover;", class: "post-item" %>
           <% end %>
         <% else %>
-          <%= image_tag('no_image.jpg') %>
+          <%= image_tag('no_image.jpg', size: '300x250') %>
         <% end %>
 
         <div id="favorite_buttons_<%= @post.id %>" >
@@ -89,8 +89,6 @@
 
     <!--ボタン-->
     <div>
-      <!--ログインしているか？-->
-      <%# if user_signed_in? %>
         <!--投稿者本人だったら-->
         <% if @post.user == current_user %>
           <div class="text-center">
