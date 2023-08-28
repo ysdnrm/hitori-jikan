@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   # 各アクションを実行する前に実行したい処理を指定(before_action)
   before_action :is_matching_login_user, only: [:edit, :update]
   before_action :set_user, only: [:favorites]
+  before_action :ensure_guest_user, only: [:edit]
   # before_action user_admin, only: [:index]
 
 
@@ -60,4 +61,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def ensure_guest_user
+    @user = User.find(params[:id])
+    if @user.guest_user?
+      redirect_to user_path(current_user) , notice: "ゲストユーザーはプロフィール編集画面へ遷移できません。"
+    end
+  end  
 end

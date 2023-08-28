@@ -51,7 +51,7 @@
             <% end %>
           </li>
 
-          <li>
+          <li class="ml-3">
             <%= render 'layouts/search_form' %>
           </li>
 
@@ -79,13 +79,13 @@
           </li>
 
           <li>
-            <%= link_to posts_path, class: 'nav-link text-secondary' do %>
-              <i class="fas fa-list-ul"></i>
-              投稿一覧
+            <%= link_to users_guest_sign_in_path, class: "nav-link text-secondary sign_in", method: :post do %>
+              <i class="fa-solid fa-user-tie"></i>
+              ゲストログイン<br>（ 閲覧用 ）
             <% end %>
           </li>
 
-          <li>
+          <li class="ml-3">
             <%= render 'layouts/search_form' %>
           </li>
 
