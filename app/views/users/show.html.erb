@@ -8,7 +8,10 @@
     <% if @user.id == current_user.id %>
       <div class="mt-4">
         <span class="font-weight-bold">登録情報</span>
-        <%= link_to "編集する", edit_user_path(@user), class: "pull-right btn  btn-sm btn-outline-secondary col-2 mx-3 font-weight-bold"  %>
+        <!--ユーザーのemailがguest@example.comではない場合には、ボタンを表示-->
+        <% unless @user.guest_user? %>
+          <%= link_to "編集する", edit_user_path(@user), class: "pull-right btn  btn-sm btn-outline-secondary col-2 mx-3 font-weight-bold"  %>
+        <% end %>
         <%= link_to "いいねした投稿", favorites_user_path(@user), class: "pull-right btn  btn-sm btn-outline-info col-2 mx-3 font-weight-bold" %>
         <%= link_to "非公開中の投稿", confirm_posts_path(@user), class: "pull-right btn  btn-sm btn-outline-warning col-2 mx-3 font-weight-bold" %>
       </div>
