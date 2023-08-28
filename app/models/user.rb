@@ -8,9 +8,9 @@ class User < ApplicationRecord
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
 
-  validates :name, presence: true
-  validates :email, presence: true
-  validates :encrypted_password, presence: true
+  validates :name, presence: true, uniqueness: true
+  validates :email, presence: true, uniqueness: true
+  validates :encrypted_password, presence: true, uniqueness: true
 
    # プロフィール画像
   has_one_attached :profile_image
