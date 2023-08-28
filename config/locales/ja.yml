@@ -22,10 +22,14 @@ ja:
   activerecord:
     errors:
       messages:
+        error prohibited this obj from being saved:
         record_invalid: 'バリデーションに失敗しました: %{errors}'
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
+  activemodel:   # Formオブジェクトを用いた場合
+     attributes:
+      shop_name: 'お店の名前'
   date:
     abbr_day_names:
     - 日
@@ -208,23 +212,24 @@ ja:
       next: <i class="fas fa-angle-right"></i>
       truncate: "..."
   # activerecord:
-  #   models:
-  #     user: ユーザー
-  #     post: 投稿
-  #   attributes:
-  #     user:
-  #       name: 名前
-  #       address: 住所
-  #       phone: 電話番号
-  #       sex: 性別
-  #       mail_address: メールアドレス
-  #     # post:
-      #   shop_name: 'お店の名前'
-      #   shop_introduction: 'お店の紹介文'
-      #   shop_postal_code: 'お店の郵便番号'
-      #   shop_address: 'お店の住所'
-      #   # stay_weekday: 'お店を利用した曜日'
-      #   stay_time_start: 'お店を利用した時間帯（入店時間）'
-      #   stay_time_end: 'お店を利用した時間帯（退店時間）'
-      #   # congestion_degree: 'お店の混み具合'
+  #   errors:
+  #     models:
+  #       post: # モデル名（Shop に対応するモデル名を使用）
+  #         attributes:
+  #           shop_name: 
+  #             blank: "お店の名前を入力してください"
+  #           shop_introduction:
+  #             blank: "お店の紹介文を入力してください"
+  #           shop_postal_code:
+  #             blank: "郵便番号を入力してください"
+  #           shop_address:
+  #             blank: "住所を入力してください"
+  #           stay_weekday:
+  #             blank: "利用した曜日を入力してください"
+  #           stay_time_start:
+  #             blank: "利用した時間帯（開始）を入力してください"
+  #           stay_time_end:
+  #             blank: "利用した時間帯（終了）を入力してください"
+  #           congestion_degree:
+  #             blank: "混み具合を入力してください"
  
