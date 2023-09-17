@@ -1,10 +1,10 @@
 # 日本語化
 ja:
-  enums: 
+  enums:
     post: # 投稿（モデル名）
       stay_weekday: #'お店を利用した曜日' #カラム名
         sunday: '日曜日' # enumの値
-        monday: '月曜日' 
+        monday: '月曜日'
         tuesday: '火曜日'
         wednesday: '水曜日'
         thursday: '木曜日'
@@ -27,6 +27,9 @@ ja:
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
+      attributes:
+        posts:
+          shop_name: 'お店の名前'
   activemodel:   # Formオブジェクトを用いた場合
      attributes:
       shop_name: 'お店の名前'
@@ -40,7 +43,7 @@ ja:
     - 金
     - 土
     abbr_month_names:
-    - 
+    -
     - 1月
     - 2月
     - 3月
@@ -66,7 +69,7 @@ ja:
       long: "%Y年%m月%d日(%a)"
       short: "%m/%d"
     month_names:
-    - 
+    -
     - 1月
     - 2月
     - 3月
@@ -216,7 +219,7 @@ ja:
   #     models:
   #       post: # モデル名（Shop に対応するモデル名を使用）
   #         attributes:
-  #           shop_name: 
+  #           shop_name:
   #             blank: "お店の名前を入力してください"
   #           shop_introduction:
   #             blank: "お店の紹介文を入力してください"
@@ -232,4 +235,3 @@ ja:
   #             blank: "利用した時間帯（終了）を入力してください"
   #           congestion_degree:
   #             blank: "混み具合を入力してください"
- 
