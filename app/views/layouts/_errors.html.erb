@@ -1,7 +1,7 @@
 <%= stylesheet_link_tag "posts", :media => "all" %>
 <% if obj.errors.any? %>
   <div id="error_explanation">
-    <h3><%= pluralize(obj.errors.count, "error") %> prohibited this obj from being saved:</h3>
+    <h3><%= t("errors.template.header", model: Post.model_name.human, count: obj.errors.count) %></h3>
     <ul>
       <% obj.errors.full_messages.each do |message| %>
         <li><%= t message %></li>

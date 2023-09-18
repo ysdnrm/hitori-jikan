@@ -15,3 +15,4 @@ User.create!(name:  "kagoshima",
              password: admin_password,
              password_confirmation: admin_password,
              admin: true)
+

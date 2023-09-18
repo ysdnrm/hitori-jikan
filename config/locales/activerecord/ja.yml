@@ -1,0 +1,41 @@
+# 日本語化
+ja:
+  enums:
+    post: # 投稿（モデル名）
+      stay_weekday: #'お店を利用した曜日' #カラム名
+        sunday: '日曜日' # enumの値
+        monday: '月曜日'
+        tuesday: '火曜日'
+        wednesday: '水曜日'
+        thursday: '木曜日'
+        friday: '金曜日'
+        saturday: '土曜日'
+        holiday: '祝日'
+      congestion_degree: #'お店の混み具合'
+        empty: '空いていた'
+        half: '半分くらい'
+        full: 'ほぼ満席'
+        over: '満席で、待っている人もいた'
+      save_status:
+        published: '公開'
+        draft: '非公開'
+  activerecord:
+    models:
+      post: 投稿内容
+    errors:
+      messages:
+        error_prohibited_this_obj_from_being_saved: 'エラー'
+        record_invalid: 'バリデーションに失敗しました: %{errors}'
+        restrict_dependent_destroy:
+          has_one: "%{record}が存在しているので削除できません"
+          has_many: "%{record}が存在しているので削除できません"
+    attributes:
+      post:
+        shop_name: 'お店の名前'
+        shop_introduction: 'お店の紹介文'
+        shop_postal_code: 'お店の郵便番号'
+        shop_address: 'お店の住所'
+        stay_weekday: 'お店を利用した曜日'
+        stay_time_start: 'お店を利用した時間帯（開始）'
+        stay_time_end: 'お店を利用した時間帯（終了）'
+        congestion_degree: 'お店の混み具合'
