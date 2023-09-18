@@ -2,13 +2,13 @@
 <%= form_with model: post, local: true do |f| %>
       <div class="form-group row mt-5">
         <!--保存されている画像があったら(編集の時）-->
-        <% if @post.images.attached? %>
+        <% if post.images.attached? %>
           <div>
             <p>選択済みの画像（削除する画像にチェックをつけてください）</p>
           </div>
-          
+
           <div style="display: flex; flex-wrap: wrap; width: 750px;">
-            <% @post.images.each do |image| %>
+            <% post.images.each do |image| %>
               <div style="display: flex; margin:5px 5px 5px 0;">
                 <%= f.check_box :image_ids, { multiple: true }, image.id, false %>
                 <label form="user_image_ids_<%= image.id %>" >
@@ -23,50 +23,56 @@
         <%= f.label :images, "投稿する画像（4枚まで投稿可）", class: "col-4 col-form-label" %>
         <%= f.file_field :images, accept: "image/*", multiple: true, class: "image-item" %>
       </div>
-      
+
       <!--店名-->
       <div class="row form-group">
         <%= f.label :shop_name, "お店の名前", class: "col-4 col-form-label" %>
         <%= f.text_field :shop_name, class: "col-7 form-control", placeholder: "例）○○店" %>
       </div>
-      
+
       <!--紹介文-->
       <div class="row form-group">
         <%= f.label :shop_introduction, "お店の紹介文", class: "col-4 col-form-label" %>
         <%= f.text_area :shop_introduction, class: "col-7 form-control", rows: "4", placeholder: "例）レトロな雰囲気で、ゆったりとした時間を過ごせます！" %>
       </div>
-      
+
       <!--タグ-->
       <div class="row form-group">
         <%= f.label :name, "タグ(,で区切ると複数登録できます)", class: "col-4 col-form-label" %>
         <%= f.text_field :name,value: shop_tags, class: 'col-7 form-control', placeholder: "例）レトロ,コーヒーが美味しい" %>
       </div>
-      
-      <!--店の郵便番号-->
-      <div class="row form-group">
-        <%= f.label :shop_postal_code, "お店の郵便番号(ハイフンなし）", class: "col-4 col-form-label" %>
-        <%= f.text_field :shop_postal_code, class: "col-7 form-control", placeholder: "例）8901234"%>
+
+      <!--住所自動入力-->
+      <div class="h-adr">
+        <span class="p-country-name" style="display:none;">Japan</span>
+        <!--店の郵便番号-->
+        <div class="row form-group">
+          <%= f.label :shop_postal_code, "お店の郵便番号(ハイフンなし）", class: "col-4 col-form-label" %>
+          <!--〒<input type="text" class="p-postal-code col-2 form-control" size="8" maxlength="8" >-->
+          <%= f.text_field :shop_postal_code, class: 'p-postal-code col-2 form-contro', placeholder: "例）0123456", size: "8", maxlength: "8" %>
+        </div>
+
+        <!--店の住所-->
+        <div class="form-group row">
+          <%= f.label :shop_address, "お店の住所", class: "col-4 col-form-label" %>
+          <!--<input type="text" class="p-region p-locality p-street-address p-extended-address col-7 form-control" />-->
+          <%= f.text_field :shop_address, class: 'p-region p-locality p-street-address p-extended-address col-7 form-control', placeholder: "例）0123456" %>
+        </div>
       </div>
-      
-      <!--店の住所-->
-      <div class="form-group row">
-        <%= f.label :shop_address, "お店の住所", class: "col-4 col-form-label" %>
-        <%= f.text_field :shop_address, class: "col-7 form-control", placeholder: "例）鹿児島県鹿児島市中央町1-2-34" %>
-      </div>
-      
+
       <!--曜日選択-->
       <div class="form-group row">
         <%= f.label :stay_weekday, "お店を利用した曜日", class: "col-4 col-form-label" %>
         <%= f.select :stay_weekday, Post.stay_weekdays_i18n.invert,{class: "form-select", include_blank: "選択してください"} %>
       </div>
-      
+
       <!--時間帯-->
       <div class="form-group row">
         <%= f.label :stay_time, "お店を利用した時間帯", class: "col-4 col-form-label" %>
         <%= f.select :stay_time_start, *[1..24], {:prompt => "時間選択"}, class:"mr-1" %> 時頃〜
         <%= f.select :stay_time_end, *[1..24], {:prompt => "時間選択"}, class:"mx-1" %> 時頃に利用した
       </div>
-      
+
       <!--混み具合選択-->
       <div class="form-group row">
         <%= f.label :congestion_degree, "お店の混み具合", class: "col-4 col-form-label" %>
@@ -85,5 +91,5 @@
         <%= f.submit "変更を保存", class: "btn btn-outline-success px-4 py-2" %>
       <% end %>
     </div>
-    
+
 <% end %>

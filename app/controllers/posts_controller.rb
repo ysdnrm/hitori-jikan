@@ -2,6 +2,7 @@ class PostsController < ApplicationController
    before_action :authenticate_user!, except: [:index, :show]
 
   def new
+    # byebug
     @post = Post.new
   end
 
@@ -19,7 +20,7 @@ class PostsController < ApplicationController
     else
       render 'new'
     end
-
+# byebug
   end
 
   # 下書き
