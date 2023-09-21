@@ -1,4 +1,5 @@
 # 鹿児島ひとり時間
+​![ひとり時間 (1)](https://github.com/ysdnrm/kagoshima-hitori-jikan/assets/133837502/0edf0388-56c0-483c-bd0a-63141906f225)
 ​
 ## サイト概要
 ### サイトテーマ
@@ -23,7 +24,8 @@
 - 空いた時間をひとりで過ごす時の場所を知りたいとき
 ​
 ## 設計書
-後ほど作成します
+ER図
+​<img width="828" alt="スクリーンショット 2023-08-29 15 11 32" src="https://github.com/ysdnrm/kagoshima-hitori-jikan/assets/133837502/e4b60580-72fb-466a-8109-fb27d822985d">
 ​
 ## 開発環境
 - OS：macOS
@@ -32,7 +34,6 @@
 - JSライブラリ：jQuery
 - IDE：Cloud9
 ​
-<!--## 使用素材-->
-<!--- 外部サービスの画像素材・音声素材を使用した場合は、必ずサービス名とURLを明記してください。-->
-<!--- アプリケーションの実装に使用したgem/bootstrapのリファレンスなどの記載は不要です。-->
-<!--- 使用しない場合は、使用素材の項目をREADMEから削除してください。-->
+## 使用素材
+- 写真のフリー素材サイト：photoAC(https://www.photo-ac.com/)
+- ロゴ作成サイト：Canva(https://www.canva.com/)
