@@ -48,15 +48,13 @@
         <!--店の郵便番号-->
         <div class="row form-group">
           <%= f.label :shop_postal_code, "お店の郵便番号(ハイフンなし）", class: "col-4 col-form-label" %>
-          <!--〒<input type="text" class="p-postal-code col-2 form-control" size="8" maxlength="8" >-->
-          <%= f.text_field :shop_postal_code, class: 'p-postal-code col-2 form-contro', placeholder: "例）0123456", size: "8", maxlength: "8" %>
+          〒<%= f.text_field :shop_postal_code, class: 'p-postal-code col-2 form-contro', placeholder: "例）0123456", size: "8", maxlength: "8" %>
         </div>
 
         <!--店の住所-->
         <div class="form-group row">
           <%= f.label :shop_address, "お店の住所", class: "col-4 col-form-label" %>
-          <!--<input type="text" class="p-region p-locality p-street-address p-extended-address col-7 form-control" />-->
-          <%= f.text_field :shop_address, class: 'p-region p-locality p-street-address p-extended-address col-7 form-control', placeholder: "例）0123456" %>
+          <%= f.text_field :shop_address, class: 'p-region p-locality p-street-address p-extended-address col-7 form-control', placeholder: "例）鹿児島県鹿児島市〇〇-〇〇" %>
         </div>
       </div>
 
