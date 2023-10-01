@@ -2,13 +2,13 @@ class HomesController < ApplicationController
   def top
     @posts = Post.published.all
     # 新着投稿（４つ）
-    @posts_latest4 = @posts.first(4)
+    @posts_latest4 = Post.order(created_at: :desc).limit(4)
   end
-  
+
   def about
   end
-  
-  
+
+
   private
 
   def set_post
