@@ -10,8 +10,6 @@ class PostCommentsController < ApplicationController
       flash[:notice] = 'コメントの投稿に失敗しました。'
     end
     redirect_to post_path(@post)
-    # comment.save
-    # render :post_comments
   end
 
   def destroy

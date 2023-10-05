@@ -3,13 +3,7 @@ class UsersController < ApplicationController
   before_action :is_matching_login_user, only: [:edit, :update]
   before_action :set_user, only: [:favorites]
   before_action :ensure_guest_user, only: [:edit]
-  # before_action user_admin, only: [:index]
 
-
-  def index
-    # 管理者用
-    @users = User.all
-  end
 
   def show
     @user = User.find(params[:id])

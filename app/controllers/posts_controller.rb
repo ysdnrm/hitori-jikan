@@ -2,7 +2,6 @@ class PostsController < ApplicationController
    before_action :authenticate_user!, except: [:index, :show]
 
   def new
-    # byebug
     @post = Post.new
   end
 
@@ -12,7 +11,6 @@ class PostsController < ApplicationController
     @post.user_id = current_user.id
      # 受け取った値を,で区切って配列にする
     @shop_tags = params[:post][:name].split(',')
-    # @post.save_status = params[:post][:save_status]
 
     if @post.save
       @post.save_shop_tags(@shop_tags)
@@ -20,13 +18,11 @@ class PostsController < ApplicationController
     else
       render 'new'
     end
-# byebug
   end
 
   # 下書き
   def confirm
     @posts = current_user.posts.draft.all
-    # find_by(params[:post_id])
   end
 
   def index
