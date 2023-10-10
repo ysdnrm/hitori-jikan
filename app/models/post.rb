@@ -68,7 +68,7 @@ class Post < ApplicationRecord
     weekday = WEEKDAY.filter_map { |key, value| value if keywords_array.first.include?(key) }.first
 
     self.joins(:post_shop_tags).joins(:shop_tags).joins(:user).where(
-      keywords_array.map do |_|
+      keywords_array.map { |_|
         [
           'shop_name LIKE :keyword',
           'shop_introduction LIKE :keyword',
@@ -81,9 +81,9 @@ class Post < ApplicationRecord
           'shop_tags.name LIKE :keyword',#shop_tagsテーブルのnameカラム
           'users.name LIKE :keyword' #usersテーブルのnameカラム
         ].join(' OR ')
-      end.join(' OR '),
-      *keywords_array.map { |keyword| { keyword: "%#{keyword}%" }
-      }
+      }.join(' OR '),
+      *keywords_array.map do |keyword| { keyword: "%#{keyword}%" }
+      end
     ).or(self.where(stay_weekday: weekday)).uniq  #投稿が重複しないように
   }
 

@@ -15,11 +15,11 @@ class FavoritesController < ApplicationController
 
   private
 
-  def authenticate_user!
-    unless user_signed_in?
-      flash[:alert] = "いいねをするにはログインが必要です。"
-      redirect_to new_user_session_path
+    def authenticate_user!
+      unless user_signed_in?
+        flash[:alert] = "いいねをするにはログインが必要です。"
+        redirect_to new_user_session_path
+      end
     end
-  end
 
 end

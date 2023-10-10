@@ -8,12 +8,11 @@ class HomesController < ApplicationController
   def about
   end
 
-
   private
 
-  def set_post
-    # PATHパラメータでitemを取得
-    @post = Post.find_by(params[:post_id])
-  end
+    def set_post
+      # PATHパラメータでitemを取得
+      @post = Post.find_by(params[:post_id])
+    end
 
 end
